@@ -1,0 +1,150 @@
+<?php
+/**
+ * Guess game routes.
+ */
+//var_dump(array_keys(get_defined_vars()));
+
+
+/**
+ * Route to getgame
+ */
+$app->router->get("guess/get", function () use ($app) {
+
+    /**
+     * Set form results to variables
+     */
+    $number = isset($_GET['number']) ? htmlentities($_GET['number']) : -1;
+    $tries  = isset($_GET['tries'])  ? htmlentities($_GET['tries'])  : 6;
+    $guess  = isset($_GET['guess'])  ? htmlentities($_GET['guess'])  : null;
+    $do     = isset($_GET['do'])     ? htmlentities($_GET['do'])     : null;
+
+    /**
+     * Create game object
+     */
+    $game = new Peal\Guess\Guess($number, $tries);
+    $viewRes ='';
+
+    /**
+     * Perform game actions based on submit type
+     */
+    switch ($do) {
+        case 'Make a guess':
+            $viewRes = $game->makeGuess($guess, $tries);
+            break;
+        case 'Cheat':
+            $viewRes = $game->number();
+            break;
+        case 'Reset':
+            $game = new Peal\Guess\Guess();
+            break;
+    }
+
+    $data = [
+        'title' => 'Guess game (GET)',
+        'info' => $game->viewInfo('Guess game (GET)'),
+        'gameform' => $game->viewForm('GET'),
+        'viewRes' => $viewRes
+    ];
+
+    $app->view->add("content/guess/guess", $data);
+    $app->page->render($data);
+});
+
+
+/**
+ * Route to postgame
+ */
+$app->router->any(['POST', 'GET'], "guess/post", function () use ($app) {
+
+    /**
+     * Set form results to variables
+     */
+    $number = isset($_POST['number']) ? htmlentities($_POST['number']) : -1;
+    $tries  = isset($_POST['tries'])  ? htmlentities($_POST['tries'])  : 6;
+    $guess  = isset($_POST['guess'])  ? htmlentities($_POST['guess'])  : null;
+    $do     = isset($_POST['do'])     ? htmlentities($_POST['do'])     : null;
+
+    /**
+     * Create game object
+     */
+    $game = new Peal\Guess\Guess($number, $tries);
+    $viewRes ='';
+
+    /**
+     * Perform game actions based on submit type
+     */
+    switch ($do) {
+        case 'Make a guess':
+            $viewRes = $game->makeGuess($guess, $tries);
+            break;
+        case 'Cheat':
+            $viewRes = $game->number();
+            break;
+        case 'Reset':
+            $game = new Peal\Guess\Guess();
+            break;
+    }
+
+    $data = [
+        'title' => 'Guess game (POST)',
+        'info' => $game->viewInfo('Guess game (POST)'),
+        'gameform' => $game->viewForm('POST'),
+        'viewRes' => $viewRes
+    ];
+
+    $app->view->add("content/guess/guess", $data);
+    $app->page->render($data);
+});
+
+
+/**
+ * Route to sessiongame
+ */
+$app->router->any(['POST', 'GET'], "guess/session", function () use ($app) {
+
+    /**
+     * Start a session
+     */
+    session_name('Guess');
+    session_start();
+
+    /**
+     * Set form results to variables
+     */
+    $guess  = isset($_POST['guess'])  ? htmlentities($_POST['guess'])  : null;
+    $do     = isset($_POST['do'])     ? htmlentities($_POST['do'])     : null;
+
+    /**
+     * Create game object
+     */
+    $_SESSION['game'] = isset($_SESSION['game']) ? $_SESSION['game'] : new Peal\Guess\Guess();
+    $game = $_SESSION['game'];
+    $viewRes ='';
+
+    /**
+     * Perform game actions based on submit type
+     */
+    switch ($do) {
+        case 'Make a guess':
+            $viewRes = $game->makeGuess($guess, $game->tries());
+            break;
+        case 'Cheat':
+            $viewRes = $game->number();
+            break;
+        case 'Reset':
+            $_SESSION['game'] = new Peal\Guess\Guess();
+            $game = $_SESSION['game'];
+            break;
+    }
+
+    $data = [
+        'title' => 'Guess game (SESSION)',
+        'info' => $game->viewInfo('Guess game (SESSION)'),
+        'gameform' => $game->viewForm('POST', true),
+        'viewRes' => $viewRes
+    ];
+
+    $app->view->add("content/guess/guess", $data);
+    $app->page->render($data);
+});
+
