@@ -2,7 +2,7 @@
 namespace Peal\Dice100;
 
 /**
- * Exception class for DiceExceptions
+ * Dice exception class
  */
 class Dice100Exception extends Exception
 {

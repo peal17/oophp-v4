@@ -125,6 +125,4 @@ $app->router->any(['POST', 'GET'], "dice/start", function () use ($app) {
      */
     $app->view->add("content/dice100/game", $data);
     $app->page->render($data);
-
-
 });

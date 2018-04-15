@@ -23,9 +23,11 @@ class Gameview
     {
         $dice = '';
         $playing = '';
-        if ($turn == $player) {$playing = '||';
+        if ($turn == $player) {
+            $playing = '||';
         }
-        if ($rollRes != 0) {$dice = " <i class='dice-sprite dice-$rollRes'></i>";
+        if ($rollRes != 0) {
+            $dice = " <i class='dice-sprite dice-$rollRes'></i>";
         }
 
         $text = "<h1 class='round'>$name $playing "
@@ -66,7 +68,8 @@ class Gameview
     public function buttons($player)
     {
         $disabled = '';
-        if ($player == 0) {$disabled = 'disabled';
+        if ($player == 0) {
+            $disabled = 'disabled';
         }
         $form = "<form id='rollform' method='POST'>"
             . "<input type='submit' name='do' value='New game' {$disabled}><br><br><br><br>"

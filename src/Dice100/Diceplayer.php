@@ -2,7 +2,7 @@
 namespace Peal\Dice100;
 
 /**
- * A class for playing dicegame
+ * A class for dicegame playing
  */
 class Diceplayer
 {
@@ -110,7 +110,7 @@ class Diceplayer
      *
      * @return string Roll or Stop
      */
-    public function ai(int $until = 10)
+    public function ai(int $until = 9)
     {
         $message = '';
         switch (true) {
