@@ -15,7 +15,7 @@ class Gameview
      * @param int   $rollRes     rolled dice
      * @param string $name       player name
      * @param int   $turn        for deciding player to display
-     * @param array $player      player turn value
+     * @param int $player      player turn value
      *
      * @return string html elements
      */
