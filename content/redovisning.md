@@ -32,6 +32,7 @@ Kmom02
 
 **Hur gick det att överföra spelet “Gissa mitt nummer” in i din me-sida?**  
 Jag tyckte det funkade relativt smidigt. Jag gjorde några småjusteringar i koden så det passde in bättre.
+
 **Berätta om hur du löste uppgiften med Tärningsspelet 100, hur du tänkte, planerade och utförde uppgiften samt hur du organiserade din kod?**  
 Det gick bra, jag var lite stressad att bli klar och fick använda de lösningar som framträdde för mig först.
 
